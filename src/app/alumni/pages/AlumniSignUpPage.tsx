@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useState } from "react";
 import { AlumniSignUpHome } from "../components/AlumniSignUpHome";
 import { AlumniCreateAccount } from "../components/AlumniCreateAccount";

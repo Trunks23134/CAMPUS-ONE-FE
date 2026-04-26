@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getCurrentUser, logout } from "@/services/auth.service";
 import { LogOut, BookOpen, Users, ClipboardCheck, Bell, Menu, X } from "lucide-react";
 import { getProfessorClasses, getProfessorStats } from "../services/professor.service";
@@ -16,21 +16,36 @@ export function ProfessorDashboard() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (user?.id) {
-      loadStats();
-    }
-  }, [user]);
-
-  const loadStats = async () => {
+  const loadStats = useCallback(async () => {
     if (!user?.id) return;
     setLoading(true);
-    const result = await getProfessorStats(user.id);
-    if (result.data) {
-      setStats(result.data);
+    try {
+      const result = await getProfessorStats(user.id);
+      if (result.data) {
+        setStats(result.data);
+      } else {
+        // If no data, set default stats
+        setStats({ totalClasses: 0, totalStudents: 0, pendingSubmissions: 0 });
+      }
+    } catch (error) {
+      console.error('Error loading professor stats:', error);
+      // Set default stats on error
+      setStats({ totalClasses: 0, totalStudents: 0, pendingSubmissions: 0 });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [user?.id]);
+
+  useEffect(() => {
+    console.log('Professor user:', user);
+    if (user?.id) {
+      console.log('Loading stats for professor ID:', user.id);
+      loadStats();
+    } else {
+      console.log('No user ID found');
+      setLoading(false);
+    }
+  }, [user?.id, loadStats]);
 
   const handleViewClass = (classId: string) => {
     setSelectedClassId(classId);

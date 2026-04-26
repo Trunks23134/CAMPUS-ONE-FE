@@ -24,25 +24,49 @@ export function UnifiedEntryPage() {
             <p className="text-base text-gray-300">Your gateway to education</p>
           </div>
 
-          <div className="space-y-4 mb-8">
-            <button
-              onClick={() => router.push('/admissions')}
-              className="w-full bg-[#F59E0B] text-white rounded-2xl p-6 shadow-2xl hover:bg-[#D97706] active:scale-[0.98] transition-all group relative overflow-hidden"
-            >
-              <div className="relative flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <UserPlus className="w-6 h-6" />
+          <div className="mb-6">
+            <p className="text-xs font-bold text-gray-400 tracking-wider uppercase mb-3">NEW TO CAMPUS?</p>
+            <div className="space-y-4">
+              <button
+                onClick={() => router.push('/admissions')}
+                className="w-full bg-[#F59E0B] text-white rounded-2xl p-6 shadow-2xl hover:bg-[#D97706] active:scale-[0.98] transition-all group relative overflow-hidden"
+              >
+                <div className="relative flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <UserPlus className="w-6 h-6" />
+                    </div>
+                    <div className="text-left">
+                      <h2 className="text-lg font-bold mb-0.5">New Applicant</h2>
+                      <p className="text-xs text-white/80">Start your application</p>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <h2 className="text-lg font-bold mb-0.5">New Applicant</h2>
-                    <p className="text-xs text-white/80">Start your application</p>
-                  </div>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </button>
+              </button>
 
+              <button
+                onClick={() => router.push('/alumni/register')}
+                className="w-full bg-[#2d3748] text-white rounded-2xl p-6 border-2 border-[#F59E0B] hover:bg-[#374151] active:scale-[0.98] transition-all group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-[#F59E0B]/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <GraduationCap className="w-6 h-6 text-[#F59E0B]" />
+                    </div>
+                    <div className="text-left">
+                      <h2 className="text-lg font-bold mb-0.5 text-[#F59E0B]">Alumni Sign Up</h2>
+                      <p className="text-xs text-gray-300">Register your alumni account</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-[#F59E0B] group-hover:translate-x-1 transition-transform" />
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <p className="text-xs font-bold text-gray-400 tracking-wider uppercase mb-3">ALREADY HAVE AN ACCOUNT?</p>
             <button
               onClick={() => router.push('/login')}
               className="w-full bg-white/10 backdrop-blur-sm text-white rounded-2xl p-6 border border-white/20 hover:bg-white/15 active:scale-[0.98] transition-all group"

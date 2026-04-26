@@ -85,7 +85,7 @@ export default function AlumniRegisterPage() {
   return (
     <div className="registration-page">
       <header className="registration-topbar">
-        <Link className="back-link" href="/login">
+        <Link className="back-link" href="/">
           <span aria-hidden="true">←</span>
           <strong>Register</strong>
         </Link>

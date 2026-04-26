@@ -43,11 +43,16 @@ async function detectUserRole(email: string): Promise<UserRole | null> {
 
 export async function login(credentials: LoginCredentials): Promise<LoginResponse> {
   const { email, password } = credentials;
+  
   try {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    
     if (error) return { success: false, error: error.message };
 
+    if (!data.user) return { success: false, error: 'Login failed' };
+
     const role = await detectUserRole(email);
+    
     if (!role) return { success: false, error: 'No account found with this email.' };
 
     const authUser: AuthUser = {
@@ -61,7 +66,8 @@ export async function login(credentials: LoginCredentials): Promise<LoginRespons
     }
 
     return { success: true, user: authUser };
-  } catch {
+  } catch (err) {
+    console.error('Login error:', err);
     return { success: false, error: 'An error occurred during login.' };
   }
 }
