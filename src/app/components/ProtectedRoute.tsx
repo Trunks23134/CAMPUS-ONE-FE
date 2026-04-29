@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import type { UserRole } from '@/services/auth.service';
+import { isAnyAdmin } from '@/services/auth.service';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -10,11 +11,14 @@ interface ProtectedRouteProps {
 }
 
 const rolePaths: Record<UserRole, string> = {
-  applicant: '/admissions',
-  student: '/dashboard',
-  professor: '/professor',
-  alumni: '/alumni/dashboard',
-  admin: '/admin',
+  applicant:       '/admissions',
+  student:         '/dashboard',
+  professor:       '/professor',
+  alumni:          '/alumni/dashboard',
+  student_admin:   '/admin/student',
+  applicant_admin: '/admin/applicant',
+  alumni_admin:    '/admin/alumni',
+  super_admin:     '/admin/super',
 };
 
 export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
@@ -29,17 +33,12 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
     }
   }, [loading, user, role]);
 
-  // Still loading — show nothing
   if (loading) return null;
-
-  // Not logged in
   if (!user) return null;
-
-  // Wrong role
   if (allowedRoles && role && !allowedRoles.includes(role)) return null;
 
-  // Admin desktop check
-  if (role === 'admin') {
+  // Block all admin roles from mobile
+  if (role && isAnyAdmin(role)) {
     const isDesktop = typeof window !== 'undefined' && !('ReactNativeWebView' in window);
     if (!isDesktop) {
       return (

@@ -17,17 +17,35 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 async function detectRole(email: string): Promise<UserRole | null> {
-  const checks: { table: string; role: UserRole }[] = [
-    { table: 'student_accounts',   role: 'student' },
-    { table: 'admin_users',        role: 'admin' },
-    { table: 'professor_users',    role: 'professor' },
-    { table: 'alumni',             role: 'alumni' },
-    { table: 'applicant_profiles', role: 'applicant' },
-  ];
-  for (const { table, role } of checks) {
-    const { data } = await supabase.from(table).select('id').eq('email', email).maybeSingle();
-    if (data) return role;
+  // Check student accounts
+  const { data: student } = await supabase.from('student_accounts').select('id').eq('email', email).maybeSingle();
+  if (student) return 'student';
+
+  // Check admin_users — role column determines which admin type
+  const { data: admin } = await supabase.from('admin_users').select('id, role').eq('email', email).maybeSingle();
+  if (admin) {
+    const roleMap: Record<string, UserRole> = {
+      student_admin:    'student_admin',
+      applicant_admin:  'applicant_admin',
+      alumni_admin:     'alumni_admin',
+      super_admin:      'super_admin',
+      admin:            'applicant_admin', // fallback for legacy rows
+    };
+    return roleMap[admin.role] ?? 'applicant_admin';
   }
+
+  // Check professor
+  const { data: professor } = await supabase.from('professor_users').select('id').eq('email', email).maybeSingle();
+  if (professor) return 'professor';
+
+  // Check alumni
+  const { data: alumni } = await supabase.from('alumni').select('id').eq('email', email).maybeSingle();
+  if (alumni) return 'alumni';
+
+  // Check applicant
+  const { data: applicant } = await supabase.from('applicant_profiles').select('id').eq('email', email).maybeSingle();
+  if (applicant) return 'applicant';
+
   return null;
 }
 
