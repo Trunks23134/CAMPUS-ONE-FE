@@ -76,3 +76,4 @@ export default function AlumniDashboardLayout({ children }: { children: React.Re
     </div>
   );
 }
+

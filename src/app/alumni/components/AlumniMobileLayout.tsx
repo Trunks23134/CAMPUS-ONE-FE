@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useRouter } from "next/navigation";
 
 interface AlumniMobileLayoutProps {
@@ -35,3 +35,4 @@ export function AlumniMobileLayout({ title, subtitle, children }: AlumniMobileLa
     </div>
   );
 }
+

@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
 
 // Initialize Resend with API key from environment
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+const apiKey = process.env.NEXT_PUBLIC_RESEND_API_KEY;
+const resend = apiKey ? new Resend(apiKey) : null;
 
 interface SendEmailParams {
   to: string;
@@ -19,20 +20,21 @@ interface SendApplicationConfirmationParams {
 
 // Generic email sending function
 export async function sendEmail({ to, subject, html }: SendEmailParams) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email send');
+    return { success: true, data: { message: 'Email skipped - no API key configured' } };
+  }
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Acme <onboarding@resend.dev>', // Resend test domain
+      from: 'Acme <onboarding@resend.dev>',
       to: [to],
       subject,
       html,
     });
-
     if (error) {
       console.error('Email sending error:', error);
       return { success: false, error: error.message };
     }
-
-    console.log('Email sent successfully:', data);
     return { success: true, data };
   } catch (error) {
     console.error('Email service error:', error);
@@ -47,6 +49,10 @@ export async function sendApplicationConfirmationEmail({
   schoolLevel,
   applicantType,
 }: SendApplicationConfirmationParams) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email send');
+    return { success: true, data: { message: 'Email skipped - no API key configured' } };
+  }
   try {
     const { data, error } = await resend.emails.send({
       from: 'Campus Admissions <onboarding@resend.dev>', // Resend test domain

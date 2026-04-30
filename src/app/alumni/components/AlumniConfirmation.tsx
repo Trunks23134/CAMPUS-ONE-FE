@@ -64,3 +64,4 @@ export function AlumniConfirmation({ referenceNumber }: AlumniConfirmationProps)
     </div>
   );
 }
+

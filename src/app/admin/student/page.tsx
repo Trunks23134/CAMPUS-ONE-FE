@@ -5,7 +5,7 @@ import { StudentAdminDashboard } from '@/admin/pages/student-admin/StudentAdminD
 export default function StudentAdminPage() {
   return (
     <ProtectedRoute allowedRoles={['student_admin']}>
-      <StudentAdminDashboard onSwitchPortal={() => {}} />
+      <StudentAdminDashboard />
     </ProtectedRoute>
   );
 }
