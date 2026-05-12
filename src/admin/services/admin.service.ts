@@ -1,6 +1,6 @@
-import { supabase } from "@/shared/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import type { SchoolLevel, ApplicantType, AdmissionStatus, SupabaseResponse } from "@/applicant/types/admissions.types";
-import { sendEmail } from "@/shared/email.service";
+import { sendEmail } from "@/services/email.service";
 
 // ─── Admin Types ──────────────────────────────────────────────────────────────
 export interface AdminApplication {

@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
-import { getCurrentUser, logout } from "@/shared/auth.service";
+import { getCurrentUser, logout } from "@/services/auth.service";
 import { LogOut, BookOpen, Users, ClipboardCheck, Bell, Menu, X } from "lucide-react";
 import { getProfessorClasses, getProfessorStats } from "@/professor/services/professor.service";
 import { ClassList } from "../components/ClassList";

@@ -1,4 +1,4 @@
-import { supabase, STORAGE_BUCKET } from "@/shared/lib/supabase";
+import { supabase, STORAGE_BUCKET } from "@/lib/supabase";
 import { getRequirements } from "./requirements.config";
 import type {
   SchoolLevel, ApplicantType, AdmissionActivityLogDTO, AdmissionEventType,
@@ -71,7 +71,7 @@ export async function submitApplication(applicantId: string): Promise<SupabaseRe
   
   // Send confirmation email with reference number
   try {
-    const { sendApplicationConfirmationEmail } = await import("@/shared/email.service");
+    const { sendApplicationConfirmationEmail } = await import("@/services/email.service");
     
     console.log("📤 Sending confirmation email...");
     const emailResult = await sendApplicationConfirmationEmail({
