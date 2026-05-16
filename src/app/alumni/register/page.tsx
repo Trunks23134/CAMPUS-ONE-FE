@@ -54,7 +54,7 @@ export default function AlumniRegisterPage() {
 
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/v1/alumni/register`, {
+      const res = await fetch(`${API_BASE}/api/alumni/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

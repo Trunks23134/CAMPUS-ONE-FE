@@ -97,12 +97,16 @@ export function UnifiedLoginPage() {
           </form>
 
           <div className="mt-6 space-y-3">
+            <button onClick={() => router.push('/alumni/signup')}
+              className="w-full h-11 rounded-lg border-2 border-[#F59E0B] text-[#F59E0B] font-semibold text-sm hover:bg-amber-50 transition-colors">
+              Alumni Registration →
+            </button>
             <button onClick={() => router.push('/admissions/track')}
               className="w-full h-11 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold text-sm hover:bg-gray-50 transition-colors">
               Track Application Status
             </button>
             <button onClick={() => router.push('/')}
-              className="w-full h-11 rounded-lg border-2 border-[#F59E0B] text-[#F59E0B] font-semibold text-sm hover:bg-amber-50 transition-colors">
+              className="w-full h-11 rounded-lg border-2 border-transparent text-gray-500 font-semibold text-sm hover:bg-gray-50 transition-colors">
               ← Back to Home
             </button>
           </div>
