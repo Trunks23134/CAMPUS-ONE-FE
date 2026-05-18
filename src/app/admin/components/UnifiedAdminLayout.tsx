@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode, useState, useEffect } from "react";
 import { logout, getCurrentUser } from "@/services/auth.service";
-import { LogOut, LayoutDashboard, FileText, GraduationCap, Bell, ChevronDown, ChevronRight, Inbox, FileCheck, CheckCircle, ClipboardList, Calendar, Shield, Users, BarChart3, HelpCircle, FileText as FileTextIcon } from "lucide-react";
+import { LogOut, LayoutDashboard, FileText, GraduationCap, Bell, ChevronDown, ChevronRight, Inbox, FileCheck, CheckCircle, ClipboardList, Calendar, Shield, Users, BarChart3, HelpCircle, FileText as FileTextIcon, BookOpen } from "lucide-react";
 
 interface UnifiedAdminLayoutProps {
   children: ReactNode;
@@ -57,6 +57,12 @@ export function UnifiedAdminLayout({
       type: "single" as const
     },
     {
+      id: "admissions-scope-guide",
+      label: "Admissions Scope Guide",
+      icon: BookOpen,
+      type: "single" as const
+    },
+    {
       id: "admissions-pipeline",
       label: "Admissions Pipeline",
       type: "folder" as const,
@@ -109,10 +115,8 @@ export function UnifiedAdminLayout({
       <div className="w-72 bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] text-white flex flex-col flex-shrink-0 shadow-2xl">
         {/* Logo */}
         <div className="p-8 border-b border-gray-800">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center">
-              <span className="text-white font-bold text-lg">C</span>
-            </div>
+          <div className="flex items-center gap-3 mb-2">
+            <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain rounded-lg" />
             <div>
               <div className="flex items-center gap-1">
                 <span className="text-[#F59E0B] font-bold text-xl">CAMPUS</span>
@@ -283,6 +287,7 @@ export function UnifiedAdminLayout({
           <div>
             <h1 className="text-2xl font-bold text-gray-900 mb-0.5">
               {currentView === "dashboard" && "Dashboard"}
+              {currentView === "admissions-scope-guide" && "Admissions Scope Guide"}
               {currentView === "applications" && "Applications"}
               {currentView === "application-queue" && "Application Queue"}
               {currentView === "document-verification" && "Document Verification"}
@@ -299,6 +304,7 @@ export function UnifiedAdminLayout({
             </h1>
             <p className="text-sm text-gray-500">
               {currentView === "dashboard" && `Welcome back, ${user?.name || "Admin"}`}
+              {currentView === "admissions-scope-guide" && "Explore how mobile inputs map to web administrative workflows"}
               {currentView === "applications" && "Manage and review all applications"}
               {currentView === "application-queue" && "Central intake for all new submissions"}
               {currentView === "document-verification" && "Verify birth certificates, IDs, and transcripts"}
