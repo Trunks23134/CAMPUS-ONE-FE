@@ -45,7 +45,7 @@ export default function EnrollPage() {
     if (authLoading || !user) return;
 
     // Get program info for display
-    supabase.from('applicant_profiles')
+    supabase.schema('applicant').from('applicant_profiles')
       .select('program')
       .eq('id', user.id)
       .maybeSingle()

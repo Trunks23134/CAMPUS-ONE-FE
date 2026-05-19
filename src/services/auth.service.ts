@@ -23,11 +23,11 @@ export interface LoginResponse {
 }
 
 async function detectUserRole(email: string): Promise<UserRole | null> {
-  const { data: student } = await supabase.from('student_accounts').select('id').eq('email', email).maybeSingle();
+  const { data: student } = await supabase.schema('student').from('student_accounts').select('id').eq('email', email).maybeSingle();
   if (student) return 'student';
 
   // Check admin_users table for admin role
-  const { data: admin } = await supabase.from('admin_users').select('id, role').eq('email', email).maybeSingle();
+  const { data: admin } = await supabase.schema('admin').from('admin_users').select('id, role').eq('email', email).maybeSingle();
   if (admin) {
     // Map admin roles to UserRole
     if (admin.role === 'super_admin') return 'admin';
@@ -37,13 +37,13 @@ async function detectUserRole(email: string): Promise<UserRole | null> {
     return 'admin';
   }
 
-  const { data: professor } = await supabase.from('professor_users').select('id').eq('email', email).maybeSingle();
+  const { data: professor } = await supabase.schema('faculty').from('professor_users').select('id').eq('email', email).maybeSingle();
   if (professor) return 'professor';
 
   const { data: alumni } = await supabase.from('alumni').select('id').eq('email', email).maybeSingle();
   if (alumni) return 'alumni';
 
-  const { data: applicant } = await supabase.from('applicant_profiles').select('id').eq('email', email).maybeSingle();
+  const { data: applicant } = await supabase.schema('applicant').from('applicant_profiles').select('id').eq('email', email).maybeSingle();
   if (applicant) return 'applicant';
 
   return null;
