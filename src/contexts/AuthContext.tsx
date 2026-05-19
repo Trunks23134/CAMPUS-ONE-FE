@@ -16,6 +16,7 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
 });
 
+<<<<<<< HEAD
 function readStoredAuthUser(): { id: string; email: string; role: UserRole } | null {
   if (typeof window === 'undefined') return null;
 
@@ -34,6 +35,8 @@ function readStoredAuthUser(): { id: string; email: string; role: UserRole } | n
   return null;
 }
 
+=======
+>>>>>>> 57fc38d9ff45965d75ad134eebf190823cbbebfe
 async function detectRole(email: string): Promise<UserRole | null> {
   const checks: { table: string; role: UserRole }[] = [
     { table: 'student_accounts',   role: 'student' },
@@ -85,6 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     const storedUser = readStoredAuthUser();
 
     if (storedUser) {
@@ -93,10 +97,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     }
 
+=======
+>>>>>>> 57fc38d9ff45965d75ad134eebf190823cbbebfe
     // Get initial session — if refresh token is invalid, sign out cleanly
     supabase.auth.getSession().then(({ data: { session }, error }) => {
       if (error) {
         // Stale/invalid refresh token — clear everything and treat as logged out
+<<<<<<< HEAD
         const cachedUser = readStoredAuthUser();
         if (cachedUser) {
           setUser({ id: cachedUser.id, email: cachedUser.email } as User);
@@ -105,6 +112,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return;
         }
 
+=======
+>>>>>>> 57fc38d9ff45965d75ad134eebf190823cbbebfe
         supabase.auth.signOut().catch(() => {});
         if (typeof window !== 'undefined') sessionStorage.removeItem('auth_user');
         setUser(null);
@@ -112,6 +121,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(false);
         return;
       }
+<<<<<<< HEAD
 
       if (!session?.user) {
         const cachedUser = readStoredAuthUser();
@@ -123,6 +133,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
+=======
+>>>>>>> 57fc38d9ff45965d75ad134eebf190823cbbebfe
       resolveUser(session?.user ?? null);
     });
 

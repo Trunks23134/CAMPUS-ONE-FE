@@ -23,6 +23,7 @@ export interface LoginResponse {
 }
 
 async function detectUserRole(email: string): Promise<UserRole | null> {
+<<<<<<< HEAD
   const { data: student } = await supabase.schema('student').from('student_accounts').select('id').eq('email', email).maybeSingle();
   if (student) return 'student';
 
@@ -33,6 +34,18 @@ async function detectUserRole(email: string): Promise<UserRole | null> {
   if (professor) return 'professor';
 
   const { data: applicant } = await supabase.schema('applicant').from('applicant_profiles').select('id').eq('email', email).maybeSingle();
+=======
+  const { data: student } = await supabase.from('student_accounts').select('id').eq('email', email).maybeSingle();
+  if (student) return 'student';
+
+  const { data: admin } = await supabase.from('admin_users').select('id').eq('email', email).maybeSingle();
+  if (admin) return 'admin';
+
+  const { data: professor } = await supabase.from('professor_users').select('id').eq('email', email).maybeSingle();
+  if (professor) return 'professor';
+
+  const { data: applicant } = await supabase.from('applicant_profiles').select('id').eq('email', email).maybeSingle();
+>>>>>>> 57fc38d9ff45965d75ad134eebf190823cbbebfe
   if (applicant) return 'applicant';
 
   return null;
