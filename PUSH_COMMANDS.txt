@@ -1,0 +1,44 @@
+============================================================================
+COPY AND PASTE THESE COMMANDS IN YOUR TERMINAL
+============================================================================
+
+Repository: https://github.com/Trunks23134/CAMPUS-ONE-FE.git
+Branch: fix/applicant-admin-hydration
+
+============================================================================
+COMMANDS (Copy all and paste in terminal)
+============================================================================
+
+cd CAMPUS-ONE-FE-master/CAMPUS-ONE-FE-master
+
+git checkout -b fix/applicant-admin-hydration
+
+git add src/app/components/UnifiedLoginPage.tsx
+
+git add src/app/admin/components/UnifiedAdminLayout.tsx
+
+git commit -m "fix: resolve hydration errors in admin login and layout"
+
+git push -u origin fix/applicant-admin-hydration
+
+============================================================================
+AFTER PUSHING
+============================================================================
+
+1. Go to: https://github.com/Trunks23134/CAMPUS-ONE-FE
+
+2. You'll see a banner: "Compare & pull request"
+
+3. Click it to create a Pull Request
+
+============================================================================
+WHAT WILL BE PUSHED
+============================================================================
+
+✅ src/app/components/UnifiedLoginPage.tsx (Fixed hydration error)
+✅ src/app/admin/components/UnifiedAdminLayout.tsx (Fixed hydration error)
+
+❌ No .md files (documentation excluded)
+❌ No .sql files (database scripts excluded)
+
+============================================================================
